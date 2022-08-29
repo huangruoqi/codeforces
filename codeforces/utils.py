@@ -1,4 +1,6 @@
 from datetime import datetime
+from termcolor import colored
+import json
 import os
 import shutil
 import requests
@@ -84,7 +86,7 @@ def _create_question_io(question, contest_id, io_path):
             in_file_name = str(n) + ".in"
             in_file_name = os.path.join(io_path, q_id, in_file_name)
             in_file = open(in_file_name, "a")
-            in_file.write(s[1:])
+            in_file.write(s)
             in_file.close()
             n += 1
     n = 0
@@ -95,6 +97,54 @@ def _create_question_io(question, contest_id, io_path):
             in_file_name = str(n) + ".out"
             in_file_name = os.path.join(io_path, q_id, in_file_name)
             in_file = open(in_file_name, "a")
-            in_file.write(s[1:])
+            in_file.write(s)
             in_file.close()
             n += 1
+
+def run_test(q_id, f_path):
+    print(f"Testing {q_id}: \n")
+    number = 0
+    correct = 0
+    io_path = os.path.join(f_path, "test-io", q_id)
+    while(os.path.isfile(os.path.join(io_path, str(number) + ".in"))) :
+        print("Running test-" + str(number) + ".in:")
+        outPath = os.path.join(io_path, str(number) + ".out")
+        outPath2 = os.path.join(f_path, "output.txt")
+        inPath = os.path.join(io_path, str(number) + ".in")
+        srcPath = os.path.join(f_path, q_id+'.py')
+        cmd = f'poetry run python "{srcPath}" < "{inPath}" > "{outPath2}"'
+        os.system(cmd)
+        file1 = open(outPath, "r")
+        expected = file1.read().strip()
+        file1.close()
+        file2 = open(outPath2, "r")
+        output = file2.read().strip()
+        file2.close()
+        print("Output:")
+        print(output)
+        print()	
+        print("Expected:")
+        print(expected)
+        print("----------")
+        if output == expected:
+            print(colored("Passed!", "green"))
+            correct += 1
+        else:
+            print(colored("Failed!", "red"))
+        print()
+        os.remove(os.path.join(f_path, "output.txt"))
+        number += 1
+    if correct == number:
+        print(colored(str(correct) + " / " + str(number) + " tests passed!", "green"))
+    else:
+        print(colored(str(correct) + " / " + str(number) + " tests passed!", "red"))
+
+def get_contest_name():
+    with open("codeforces/data.json") as f:
+        return json.load(f)["current_contest"]
+
+def set_contest_name(name):
+    with open("codeforces/data.json", "w") as f:
+        f.write(json.dumps({"current_contest": name}))
+
+    

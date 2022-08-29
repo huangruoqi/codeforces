@@ -6,6 +6,9 @@ from .utils import (
     get_contest,
     create_folder,
     create_questions,
+    run_test,
+    set_contest_name,
+    get_contest_name,
 )
 
 # f_name is used to identify usable functions
@@ -25,6 +28,7 @@ def f_init(contest_id):
         print("Exiting contest initialization...")
         return
     folder_path = create_folder(contest_name)
+    set_contest_name(contest_name)
     create_questions(contest_id, questions, folder_path, contest_name)
 
     # README
@@ -32,3 +36,6 @@ def f_init(contest_id):
     readme.write(f"# {contest_name}\n")
     readme.write(f"{url}\n")
     readme.close()
+
+def f_run(question_id):
+    run_test(question_id.upper(), os.path.join("records",get_contest_name()))
