@@ -49,4 +49,4 @@ def f_push():
         print("Undoing lasest commit...")
         os.system("git reset --soft HEAD~1")
         return
-    os.system("git push origin main")
+    os.system("git push origin master")
