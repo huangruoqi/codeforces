@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "codeforces"
+version = "0.1.0"
+description = ""
+authors = ["Ruoqi Huang <huangruoqi374@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+black = "^22.6.0"
+bs4 = "^0.0.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
