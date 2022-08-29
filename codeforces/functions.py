@@ -40,3 +40,13 @@ def f_init(contest_id):
 
 def f_run(question_id):
     run_test(question_id.upper(), os.path.join("records", get_contest_name()))
+
+
+def f_push():
+    cmd = f'git commit -m "Finish {get_contest_name()}"'
+    os.system(cmd)
+    if input("Enter `yes` to push to GitHub: ").lower().strip() != "yes":
+        print("Undoing lasest commit...")
+        os.system("git reset --soft HEAD~1")
+        return
+    os.system("git push origin main")

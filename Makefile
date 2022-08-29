@@ -20,3 +20,7 @@ ifeq (run,$(firstword $(MAKECMDGOALS)))
 endif
 run:
 	poetry run python -B codeforces/index.py run $(RUN_ARGS)
+
+push:
+	git add .
+	poetry run python -B codeforces/index.py push
