@@ -9,3 +9,6 @@ ifeq (init,$(firstword $(MAKECMDGOALS)))
 endif
 init:
 	poetry run python -B codeforces/index.py init $(RUN_ARGS)
+
+black:
+	poetry run black ./
