@@ -7,8 +7,10 @@ from .utils import (
     create_folder,
     create_questions,
     run_test,
-    set_contest_name,
+    set_contest,
     get_contest_name,
+    get_contest_id,
+    submit_question,
 )
 
 # f_name is used to identify usable functions
@@ -28,7 +30,7 @@ def f_init(contest_id):
         print("Exiting contest initialization...")
         return
     folder_path = create_folder(contest_name)
-    set_contest_name(contest_name)
+    set_contest(contest_name, contest_id)
     create_questions(contest_id, questions, folder_path, contest_name)
 
     # README
@@ -36,6 +38,9 @@ def f_init(contest_id):
     readme.write(f"# {contest_name}\n")
     readme.write(f"{url}\n")
     readme.close()
+
+    # run vscode with the generated contest folder
+    os.system(f'code "records/{contest_name}"')
 
 
 def f_run(question_id):
@@ -50,3 +55,7 @@ def f_push():
         os.system("git reset --soft HEAD~1")
         return
     os.system("git push origin master")
+
+
+def f_submit(question_id):
+    submit_question(get_contest_name(), get_contest_id(), question_id)

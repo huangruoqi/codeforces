@@ -2,10 +2,16 @@ from datetime import datetime
 from termcolor import colored
 import json
 import os
+import sys
 import shutil
 import requests
 from bs4 import BeautifulSoup
 from .settings import *
+import selenium
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import sys, os
 
 illegal = ["<", ">", "[", "]", "?", ":", "*", "|"]
 f = open("codeforces/template.py")
@@ -154,9 +160,71 @@ def run_test(q_id, f_path):
 
 def get_contest_name():
     with open("codeforces/data.json") as f:
-        return json.load(f)["current_contest"]
+        return json.load(f)["current_contest_name"]
 
 
-def set_contest_name(name):
+def get_contest_id():
+    with open("codeforces/data.json") as f:
+        return json.load(f)["current_contest_id"]
+
+
+def set_contest(name, id):
     with open("codeforces/data.json", "w") as f:
-        f.write(json.dumps({"current_contest": name}))
+        f.write(json.dumps({"current_contest_name": name, "current_contest_id": id}))
+
+
+def submit_question(contest_name, contest_id, question_id):
+    # STEP 1: Uncomment one of the below based on what Web Browser you below.
+    browser = webdriver.Chrome()
+    # browser = webdriver.Safari()
+    # browser = webdriver.Firefox()
+
+    browser.get(
+        "https://codeforces.com/problemset/problem/" + contest_id + "/" + question_id
+    )
+
+    # Sign in button
+    enter = browser.find_element(
+        By.CSS_SELECTOR,
+        "#header > div.lang-chooser > div:nth-child(2) > a:nth-child(1)",
+    )
+    enter.click()
+
+    # STEP 2: Enter your username and password
+    username = browser.find_element(By.CSS_SELECTOR, "#handleOrEmail")
+    password = browser.find_element(By.CSS_SELECTOR, "#password")
+    # Enter your username below
+    username.send_keys("huangruoqi374@gmail.com")
+    # Enter your password
+    password.send_keys("huang20001108")
+
+    # Login button
+    login = browser.find_element(
+        By.CSS_SELECTOR,
+        "#enterForm > table > tbody > tr:nth-child(4) > td > div:nth-child(1) > input",
+    )
+    login.click()
+
+    sleep(5)
+    # The program has to login in before it can upload the file
+    #  You may decrease or increase this amount based on how fast it logs in
+    #  Otherwise, you may run into an error. In the case of an error, try increasing the sleep time or contact me at ijapps101@gmail.com as a last resort.
+
+    # Step 3:
+    # Enter the path/directory where your solution is located.
+    file_path = os.path.join(os.getcwd(), "records", contest_name, question_id + ".py")
+    # Step 4
+    # Upload your file
+    browser.find_element(By.CSS_SELECTOR, ".table-form input").send_keys(file_path)
+
+    # Submit the solution
+    submit = browser.find_element(By.CSS_SELECTOR, ".submit")
+    # The above line of code may not work for some codeforces problems.
+    # In that case you can uncomment the line below
+    # submit = browser.find_element_by_xpath("//*[@value = 'Submit']")
+    submit.click()
+
+    sleep(10)
+    browser.close()
+
+    print(f"Finish submitting for question {question_id}!!")
