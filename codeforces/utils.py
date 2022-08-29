@@ -80,15 +80,26 @@ def _create_question_io(question, contest_id, io_path):
     out = soup.select(".output")
     n = 0
     for a in inp:
-        w = a.select("pre")
-        for b in w:
-            s = str(b).replace("<br/>", "\n").replace("<pre>", "").replace("</pre>", "")
-            in_file_name = str(n) + ".in"
-            in_file_name = os.path.join(io_path, q_id, in_file_name)
-            in_file = open(in_file_name, "a")
-            in_file.write(s)
-            in_file.close()
+        # newer design
+        w = a.select(".test-example-line")
+        if len(w):
+            for b in w:
+                s = b.text
+                in_file_name = str(n) + ".in"
+                in_file_name = os.path.join(io_path, q_id, in_file_name)
+                in_file = open(in_file_name, "a")
+                in_file.write(s + "\n")
+                in_file.close()
             n += 1
+            continue
+        w = a.select_one("pre")
+        s = str(w).replace("<br/>", "\n").replace("<pre>", "").replace("</pre>", "")
+        in_file_name = str(n) + ".in"
+        in_file_name = os.path.join(io_path, q_id, in_file_name)
+        in_file = open(in_file_name, "a")
+        in_file.write(s)
+        in_file.close()
+        n += 1
     n = 0
     for a in out:
         w = a.select("pre")
