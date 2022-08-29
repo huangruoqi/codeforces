@@ -37,5 +37,6 @@ def f_init(contest_id):
     readme.write(f"{url}\n")
     readme.close()
 
+
 def f_run(question_id):
-    run_test(question_id.upper(), os.path.join("records",get_contest_name()))
+    run_test(question_id.upper(), os.path.join("records", get_contest_name()))

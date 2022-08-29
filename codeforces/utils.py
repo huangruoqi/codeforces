@@ -101,17 +101,18 @@ def _create_question_io(question, contest_id, io_path):
             in_file.close()
             n += 1
 
+
 def run_test(q_id, f_path):
     print(f"Testing {q_id}: \n")
     number = 0
     correct = 0
     io_path = os.path.join(f_path, "test-io", q_id)
-    while(os.path.isfile(os.path.join(io_path, str(number) + ".in"))) :
+    while os.path.isfile(os.path.join(io_path, str(number) + ".in")):
         print("Running test-" + str(number) + ".in:")
         outPath = os.path.join(io_path, str(number) + ".out")
         outPath2 = os.path.join(f_path, "output.txt")
         inPath = os.path.join(io_path, str(number) + ".in")
-        srcPath = os.path.join(f_path, q_id+'.py')
+        srcPath = os.path.join(f_path, q_id + ".py")
         cmd = f'poetry run python "{srcPath}" < "{inPath}" > "{outPath2}"'
         os.system(cmd)
         file1 = open(outPath, "r")
@@ -122,7 +123,7 @@ def run_test(q_id, f_path):
         file2.close()
         print("Output:")
         print(output)
-        print()	
+        print()
         print("Expected:")
         print(expected)
         print("----------")
@@ -139,12 +140,12 @@ def run_test(q_id, f_path):
     else:
         print(colored(str(correct) + " / " + str(number) + " tests passed!", "red"))
 
+
 def get_contest_name():
     with open("codeforces/data.json") as f:
         return json.load(f)["current_contest"]
 
+
 def set_contest_name(name):
     with open("codeforces/data.json", "w") as f:
         f.write(json.dumps({"current_contest": name}))
-
-    
