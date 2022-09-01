@@ -25,6 +25,7 @@ def f_init(contest_id):
     contest_name, questions, url = get_contest(contest_id)
     if not questions:
         raise Exception(f"No questions found for contest {contest_id}")
+    print("<"+contest_name+">")
     print(f"{len(questions)} questions: \n\t{space.join(questions.values())}")
     if input("Enter `yes` to generate contest: ").lower().strip() != "yes":
         print("Exiting contest initialization...")

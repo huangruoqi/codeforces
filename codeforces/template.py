@@ -5,3 +5,7 @@
     Time    | {time}
     URL     | {url}
 """
+from ...codeforces.shortcuts import *
+
+for _ in range(ii()):
+    pass
