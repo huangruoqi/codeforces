@@ -22,6 +22,7 @@ def f_setup():
     o = input("GitHub repo URL      : ")
     os.system("git remote remove origin")
     os.system(f"git remote add origin {o}")
+    os.system("git push origin master")
     settings = open("codeforces/settings.py", "w")
     settings.write(
         f"""
