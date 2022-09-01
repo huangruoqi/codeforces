@@ -1,4 +1,5 @@
 import os
+import getpass
 
 space = "\n\t"
 from .utils import (
@@ -18,18 +19,18 @@ from .utils import (
 def f_setup():
     n = input("What is your name    : ")
     e = input("What is your CF email: ")
-    p = input("What is your password: ")
+    p = getpass.getpass("What is your password: ")
+    o = input("GitHub repo URL      : ")
     settings = open("codeforces/settings.py", "w")
     settings.write(
         f"""
 NAME = "{n}"
 EMAIL = "{e}"
 PASSWORD = "{p}"
+URL = "{o}"
 """
     )
     settings.close()
-    print("")
-    pass
 
 
 def f_init(contest_id):
