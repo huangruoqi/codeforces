@@ -20,6 +20,8 @@ def f_setup():
     e = input("What is your CF email: ")
     p = getpass.getpass("What is your password: ")
     o = input("GitHub repo URL      : ")
+    os.system("git remote remove origin")
+    os.system("git remote add origin {o}")
     settings = open("codeforces/settings.py", "w")
     settings.write(
         f"""
