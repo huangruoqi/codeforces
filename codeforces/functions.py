@@ -1,7 +1,5 @@
 import os
 import getpass
-
-space = "\n\t"
 from .utils import (
     get_contest,
     create_folder,
@@ -13,6 +11,7 @@ from .utils import (
     submit_question,
 )
 
+space = "\n\t"
 # f_name is used to identify usable functions
 
 
