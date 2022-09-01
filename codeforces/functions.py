@@ -17,7 +17,19 @@ from .utils import (
 
 
 def f_setup():
-    print("setup")
+    n = input("What is your name    : ")
+    e = input("What is your CF email: ")
+    p = input("What is your password: ")
+    settings = open("codeforces/settings.py", "w")
+    settings.write(
+f"""
+NAME = {n}
+EMAIL = {e}
+PASSWORD = {p}
+"""
+    )
+    settings.close()
+    print("")
     pass
 
 
