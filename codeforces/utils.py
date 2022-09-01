@@ -2,16 +2,13 @@ from datetime import datetime
 from termcolor import colored
 import json
 import os
-import sys
 import shutil
 import requests
 from bs4 import BeautifulSoup
-from .settings import *
-import selenium
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import sys, os
+import os
 
 illegal = ["<", ">", "[", "]", "?", ":", "*", "|"]
 f = open("codeforces/template.py")
@@ -55,6 +52,8 @@ def create_questions(contest_id, questions, f_path, contest_name):
 
 
 def _create_source_file(question, contest_id, f_path, contest_name):
+    from .settings import NAME
+
     q_id, name = question
     url = "https://codeforces.com/contest/{}/problem/{}?locale=en".format(
         contest_id, q_id
@@ -174,6 +173,8 @@ def set_contest(name, id):
 
 
 def submit_question(contest_name, contest_id, question_id):
+    from .settings import EMAIL, PASSWORD
+
     # STEP 1: Uncomment one of the below based on what Web Browser you below.
     browser = webdriver.Chrome()
     # browser = webdriver.Safari()
@@ -194,9 +195,9 @@ def submit_question(contest_name, contest_id, question_id):
     username = browser.find_element(By.CSS_SELECTOR, "#handleOrEmail")
     password = browser.find_element(By.CSS_SELECTOR, "#password")
     # Enter your username below
-    username.send_keys("huangruoqi374@gmail.com")
+    username.send_keys(EMAIL)
     # Enter your password
-    password.send_keys("huang20001108")
+    password.send_keys(PASSWORD)
 
     # Login button
     login = browser.find_element(
@@ -224,7 +225,7 @@ def submit_question(contest_name, contest_id, question_id):
     # submit = browser.find_element_by_xpath("//*[@value = 'Submit']")
     submit.click()
 
-    sleep(10)
+    sleep(5)
     browser.close()
 
     print(f"Finish submitting for question {question_id}!!")

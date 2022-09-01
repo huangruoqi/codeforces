@@ -1,5 +1,4 @@
 import os
-from .settings import *
 
 space = "\n\t"
 from .utils import (
@@ -22,10 +21,10 @@ def f_setup():
     p = input("What is your password: ")
     settings = open("codeforces/settings.py", "w")
     settings.write(
-f"""
-NAME = {n}
-EMAIL = {e}
-PASSWORD = {p}
+        f"""
+NAME = "{n}"
+EMAIL = "{e}"
+PASSWORD = "{p}"
 """
     )
     settings.close()
@@ -37,7 +36,7 @@ def f_init(contest_id):
     contest_name, questions, url = get_contest(contest_id)
     if not questions:
         raise Exception(f"No questions found for contest {contest_id}")
-    print("<"+contest_name+">")
+    print("<" + contest_name + ">")
     print(f"{len(questions)} questions: \n\t{space.join(questions.values())}")
     if input("Enter `yes` to generate contest: ").lower().strip() != "yes":
         print("Exiting contest initialization...")
