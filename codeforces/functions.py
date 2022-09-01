@@ -70,7 +70,8 @@ def f_push():
         print("Undoing lasest commit...")
         os.system("git reset --soft HEAD~1")
         return
-    os.system("git push origin master")
+    if os.system("git push"):
+        os.system("git checkout master")
 
 
 def f_submit(question_id):
