@@ -225,7 +225,7 @@ def submit_question(contest_name, contest_id, question_id):
     # submit = browser.find_element_by_xpath("//*[@value = 'Submit']")
     submit.click()
 
-    sleep(5)
+    sleep(8)
     browser.close()
 
     print(f"Finish submitting for question {question_id}!!")
