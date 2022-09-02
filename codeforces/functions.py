@@ -44,6 +44,8 @@ def f_init(contest_id):
     if input("Enter `yes` to generate contest: ").lower().strip() != "yes":
         print("Exiting contest initialization...")
         return
+    if os.system(f'git checkout -b C-{contest_id}')!=0:
+        os.system(f'git checkout C-{contest_id}')
     folder_path = create_folder(contest_name)
     set_contest(contest_name, contest_id)
     create_questions(contest_id, questions, folder_path, contest_name)
@@ -55,8 +57,6 @@ def f_init(contest_id):
     readme.close()
 
     # run vscode with the generated contest folder
-    if os.system(f'git checkout -b C-{contest_id}')!=0:
-        os.system(f'git checkout C-{contest_id}')
     os.system(f'code "records/{contest_name}"')
 
 
