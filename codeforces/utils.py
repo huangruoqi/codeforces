@@ -175,6 +175,8 @@ def set_contest(name, id):
 def submit_question(contest_name, contest_id, question_id):
     from .settings import EMAIL, PASSWORD
 
+    create_submission_file(contest_name, question_id)
+
     # STEP 1: Uncomment one of the below based on what Web Browser you below.
     browser = webdriver.Chrome()
     # browser = webdriver.Safari()
@@ -213,7 +215,7 @@ def submit_question(contest_name, contest_id, question_id):
 
     # Step 3:
     # Enter the path/directory where your solution is located.
-    file_path = os.path.join(os.getcwd(), "records", contest_name, question_id + ".py")
+    file_path = "codeforces/submission.py"
     # Step 4
     # Upload your file
     browser.find_element(By.CSS_SELECTOR, ".table-form input").send_keys(file_path)
@@ -229,3 +231,14 @@ def submit_question(contest_name, contest_id, question_id):
     browser.close()
 
     print(f"Finish submitting for question {question_id}!!")
+
+def create_submission_file(contest_name, question_id):
+    source_path = os.path.join("records", contest_name, question_id+'.py')
+    source = open(source_path).readlines()
+    shortcuts = open("codeforces/shortcuts.py").read()
+    submission = open("codeforces/submission.py", "w")
+    for line in source:
+        if line.strip() == "from ...codeforces.shortcuts import *":
+            submission.write(shortcuts)
+        else:
+            submission.write(line)

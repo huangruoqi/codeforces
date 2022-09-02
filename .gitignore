@@ -1,3 +1,4 @@
 .vscode
 codeforces/settings.py
 test-io
+codeforces/submission.py
