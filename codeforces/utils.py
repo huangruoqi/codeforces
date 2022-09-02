@@ -232,8 +232,9 @@ def submit_question(contest_name, contest_id, question_id):
 
     print(f"Finish submitting for question {question_id}!!")
 
+
 def create_submission_file(contest_name, question_id):
-    source_path = os.path.join("records", contest_name, question_id+'.py')
+    source_path = os.path.join("records", contest_name, question_id + ".py")
     source = open(source_path).readlines()
     shortcuts = open("codeforces/shortcuts.py").read()
     submission = open("codeforces/submission.py", "w")

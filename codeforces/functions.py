@@ -44,8 +44,8 @@ def f_init(contest_id):
     if input("Enter `yes` to generate contest: ").lower().strip() != "yes":
         print("Exiting contest initialization...")
         return
-    if os.system(f'git checkout -b C-{contest_id}')!=0:
-        os.system(f'git checkout C-{contest_id}')
+    if os.system(f"git checkout -b C-{contest_id}") != 0:
+        os.system(f"git checkout C-{contest_id}")
     folder_path = create_folder(contest_name)
     set_contest(contest_name, contest_id)
     create_questions(contest_id, questions, folder_path, contest_name)
@@ -71,13 +71,11 @@ def f_push():
         print("Undoing lasest commit...")
         os.system("git reset --soft HEAD~1")
         return
-    if os.system(f"git push origin C-{get_contest_id()}")==0:
+    if os.system(f"git push origin C-{get_contest_id()}") == 0:
         os.system("git checkout master")
-        set_contest(None, None)
     else:
         print("Undoing lasest commit...")
         os.system("git reset --soft HEAD~1")
-
 
 
 def f_submit(question_id):
