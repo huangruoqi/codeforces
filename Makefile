@@ -35,5 +35,6 @@ submit:
 	poetry run python codeforces/index.py submit $(RUN_ARGS)
 
 push:
+	poetry run black ./
 	git add .
 	poetry run python codeforces/index.py push
