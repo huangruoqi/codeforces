@@ -1,6 +1,6 @@
 # codeforces
 ### steps:
-1. Make a new repo without any files in GitHub
+1. Make a new repo with any name you like in GitHub
   ![image](https://user-images.githubusercontent.com/44049919/188018539-768fff42-4c24-477a-a875-01aeeac92159.png)
 2. Run `make setup` for your CF info
 3. Copy your new repo's url & paste it to `Github repo URL: `
