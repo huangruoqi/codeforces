@@ -242,3 +242,4 @@ def create_submission_file(contest_name, question_id):
             submission.write(shortcuts)
         else:
             submission.write(line)
+    submission.close()
