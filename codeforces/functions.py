@@ -55,7 +55,8 @@ def f_init(contest_id):
     readme.close()
 
     # run vscode with the generated contest folder
-    os.system(f'git checkout -b C-{contest_id}')
+    if os.system(f'git checkout -b C-{contest_id}')!=0:
+        os.system(f'git checkout C-{contest_id}')
     os.system(f'code "records/{contest_name}"')
 
 
