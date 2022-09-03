@@ -185,6 +185,7 @@ def submit_question(contest_name, contest_id, question_id):
     browser.get(
         "https://codeforces.com/problemset/problem/" + contest_id + "/" + question_id
     )
+    browser.maximize_window()
 
     # Sign in button
     enter = browser.find_element(
