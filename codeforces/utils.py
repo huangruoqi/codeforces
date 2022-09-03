@@ -239,7 +239,7 @@ def create_submission_file(contest_name, question_id):
     shortcuts = open("codeforces/shortcuts.py").read()
     submission = open("codeforces/submission.py", "w")
     for line in source:
-        if line.strip() == "from codeforces.shortcuts import *":
+        if line.strip()[:4]=="from":
             submission.write(shortcuts)
         else:
             submission.write(line)
