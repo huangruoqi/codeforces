@@ -215,7 +215,7 @@ def submit_question(contest_name, contest_id, question_id):
 
     # Step 3:
     # Enter the path/directory where your solution is located.
-    file_path = "codeforces/submission.py"
+    file_path = os.path.join(os.getcwd(), "codeforces/submission.py")
     # Step 4
     # Upload your file
     browser.find_element(By.CSS_SELECTOR, ".table-form input").send_keys(file_path)
@@ -239,7 +239,7 @@ def create_submission_file(contest_name, question_id):
     shortcuts = open("codeforces/shortcuts.py").read()
     submission = open("codeforces/submission.py", "w")
     for line in source:
-        if line.strip() == "from ...codeforces.shortcuts import *":
+        if line.strip() == "from codeforces.shortcuts import *":
             submission.write(shortcuts)
         else:
             submission.write(line)
