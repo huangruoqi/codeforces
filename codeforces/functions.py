@@ -46,6 +46,7 @@ def f_init(contest_id):
         return
     if os.system(f"git checkout -b C-{contest_id}") != 0:
         os.system(f"git checkout C-{contest_id}")
+        return
     folder_path = create_folder(contest_name)
     set_contest(contest_name, contest_id)
     create_questions(contest_id, questions, folder_path, contest_name)
@@ -79,4 +80,4 @@ def f_push():
 
 
 def f_submit(question_id):
-    submit_question(get_contest_name(), get_contest_id(), question_id)
+    submit_question(get_contest_name(), get_contest_id(), question_id.upper())
