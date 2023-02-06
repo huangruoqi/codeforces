@@ -12,6 +12,13 @@ from .utils import (
 space = "\n\t"
 # f_name is used to identify usable functions
 
+def f_setup():
+    url = input("Enter your own GitHub repo URL: ")
+    os.system("git remote remove origin")
+    if os.system(f"git remote add origin {url}") == 0:
+        print("You are all set.")
+    
+
 def f_init(contest_id):
     contest_name, questions, url = get_contest(contest_id)
     if not questions:

@@ -1,6 +1,7 @@
 export PYTHONDONTWRITEBYTECODE=1
 setup:
 	poetry install
+	poetry run python codeforces/index.py setup
 
 black:
 	poetry run black ./
