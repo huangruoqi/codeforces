@@ -1,5 +1,4 @@
 import os
-import getpass
 from .utils import (
     get_contest,
     create_folder,
@@ -8,32 +7,10 @@ from .utils import (
     set_contest,
     get_contest_name,
     get_contest_id,
-    submit_question,
 )
 
 space = "\n\t"
 # f_name is used to identify usable functions
-
-
-def f_setup():
-    n = input("What is your name    : ")
-    e = input("What is your CF email: ")
-    p = getpass.getpass("What is your password: ")
-    o = input("GitHub repo URL      : ")
-    os.system("git remote remove origin")
-    os.system(f"git remote add origin {o}")
-    os.system("git push origin master")
-    settings = open("codeforces/settings.py", "w")
-    settings.write(
-        f"""
-NAME = "{n}"
-EMAIL = "{e}"
-PASSWORD = "{p}"
-URL = "{o}"
-"""
-    )
-    settings.close()
-
 
 def f_init(contest_id):
     contest_name, questions, url = get_contest(contest_id)
@@ -46,16 +23,16 @@ def f_init(contest_id):
         return
     if os.system(f"git checkout -b C-{contest_id}") != 0:
         os.system(f"git checkout C-{contest_id}")
-        return
-    folder_path = create_folder(contest_name)
-    set_contest(contest_name, contest_id)
-    create_questions(contest_id, questions, folder_path, contest_name)
+    else:
+        folder_path = create_folder(contest_name)
+        set_contest(contest_name, contest_id)
+        create_questions(contest_id, questions, folder_path, contest_name)
 
-    # README
-    readme = open(os.path.join(folder_path, "README.md"), "w")
-    readme.write(f"# {contest_name}\n")
-    readme.write(f"{url}\n")
-    readme.close()
+        # README
+        readme = open(os.path.join(folder_path, "README.md"), "w")
+        readme.write(f"# {contest_name}\n")
+        readme.write(f"{url}\n")
+        readme.close()
 
     # run vscode with the generated contest folder
     os.system(f'code "records/{contest_name}"')
@@ -77,7 +54,3 @@ def f_push():
     else:
         print("Undoing lasest commit...")
         os.system("git reset --soft HEAD~1")
-
-
-def f_submit(question_id):
-    submit_question(get_contest_name(), get_contest_id(), question_id.upper())
