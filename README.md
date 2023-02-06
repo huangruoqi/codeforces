@@ -4,6 +4,17 @@
 * `ii(1)` returns an integer
 * `input()` return a string
 ### steps:
+* **Windows**
+  * Enable long path for windows in powershell
+    * https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell
+    ```
+    New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
+    -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+    ```
+  * run in powershell to install `poetry`
+    ```
+    (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python
+    ```
 1. Make a new repo with any name you like in GitHub
   ![image](https://user-images.githubusercontent.com/44049919/188018539-768fff42-4c24-477a-a875-01aeeac92159.png)
 2. Run `make setup` for your CF info
