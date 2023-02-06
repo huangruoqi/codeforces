@@ -1,4 +1,8 @@
 # codeforces
+### template:
+* `ii()` returns a list of integers
+* `ii(1)` returns an integer
+* `input()` return a string
 ### steps:
 1. Make a new repo with any name you like in GitHub
   ![image](https://user-images.githubusercontent.com/44049919/188018539-768fff42-4c24-477a-a875-01aeeac92159.png)
