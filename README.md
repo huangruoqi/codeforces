@@ -1,6 +1,6 @@
 # codeforces
 ### steps:
-0. Install xcode, python3, and your language of choice
+0. Install xcode(for maketools), python3, and your language of choice
 1. Fork this repo
 2. Clone your repo to local
 3. Setup execution commands and file extension for your language in `codeforces/settings.py`
