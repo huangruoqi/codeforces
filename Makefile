@@ -2,9 +2,6 @@ export PYTHONDONTWRITEBYTECODE=1
 setup:
 	pip install -r requirements.txt
 
-black:
-	black ./
-
 test:
 	pytest ./codeforces
 
