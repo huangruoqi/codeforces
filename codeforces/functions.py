@@ -128,19 +128,21 @@ def run_test(q_id, f_path):
     print(f"Testing {q_id}: \n")
     number = 0
     correct = 0
-    io_path = os.path.join(f_path, "test-io", q_id)
+    io_path = os.path.join("records", f_path, "test-io", q_id)
     while os.path.isfile(os.path.join(io_path, str(number) + ".in")):
         print("Running test-" + str(number) + ".in:")
         out_path = os.path.join(io_path, str(number) + ".out")
-        out_path2 = os.path.join(f_path, "output.txt")
+        out_path2 = os.path.join("records", f_path, "output.txt")
         in_path = os.path.join(io_path, str(number) + ".in")
-        question_path = os.path.join(f_path, q_id)
+        question_path = os.path.join("records", f_path, q_id)
         src_path = question_path + SRC_FILE_EXTENSION
         run_cmd = None
         template_args = {"src_path": src_path, "question_path": question_path}
         if COMPILE_COMMAND_TEMPLATE is not None:
             compile_cmd = COMPILE_COMMAND_TEMPLATE.format(**template_args)
-            os.system(compile_cmd)
+            if os.system(compile_cmd):
+                raise Exception("Compilation Error!!!!")
+
         run_cmd = f'{RUN_COMMAND_TEMPLATE.format(**template_args)} < "{in_path}" > "{out_path2}"'
         os.system(run_cmd)
         file1 = open(out_path, "r")
@@ -161,7 +163,7 @@ def run_test(q_id, f_path):
         else:
             print(colored("Failed!", "red"))
         print()
-        os.remove(os.path.join(f_path, "output.txt"))
+        os.remove(os.path.join("records", f_path, "output.txt"))
         number += 1
     if correct == number:
         print(colored(str(correct) + " / " + str(number) + " tests passed!", "green"))
@@ -212,7 +214,7 @@ def f_init(contest_id):
 
 
 def f_run(question_id):
-    run_test(question_id.upper(), os.path.join("records", get_contest_name()))
+    run_test(question_id.upper(), get_contest_name())
 
 
 def f_push():

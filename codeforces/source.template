@@ -1,20 +1,43 @@
-"""
-    Name    | Ruoqi Huang
-    Contest | {contest}
-    Problem | {problem}
-    Time    | {time}
-"""
+/**
+ *    author  | Name
+ *    contest | {contest}
+ *    problem | {problem}
+ *    created | {time}
+**/
+#include <iostream>    // for input and output
+#include <vector>      // for using dynamic array (vector)
+#include <algorithm>   // for sort(), binary_search(), etc.
+#include <cmath>       // for mathematical functions
+#include <string>      // for string manipulation
+#include <map>         // for map (associative array)
+#include <unordered_map> // for hash table
+#include <set>         // for set operations
+#include <unordered_set> // for hash set
+#include <deque>       // for double-ended queue
+#include <bitset>      // for bit manipulation
+
+using namespace std;
+
+// Often used macros in competitive programming
+#define ll long long
+#define ull unsigned long long
+#define all(v) v.begin(), v.end()
+#define min(a,b) (a<b?a:b)
+#define max(a,b) (a>b?a:b)
+#define pb push_back
 
 
-def ii(num=False):
-    i = input().split()
-    if num:
-        return int(i[0])
-    try:
-        return list(map(int, i))
-    except Exception:
-        return i
+int solve() {{
 
-
-for _ in range(ii(1)):
-    pass
+}}
+ 
+int main() {{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int uwu;
+    cin >> uwu;
+    while (uwu--) {{
+        solve();
+    }}
+    return 0;
+}}

@@ -8,7 +8,6 @@
 
 ### codeforces coding utilities
 - `make init <contest_id>` to generate new contest folder
-  - error handling added
 - `make run <problem_id>` to run script with io-tests
 - `make push` to push contest to GitHub
 
@@ -16,4 +15,6 @@
 ```python
 make init 500
 make run A
+...
+make push
 ```
