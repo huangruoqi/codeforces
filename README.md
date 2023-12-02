@@ -8,6 +8,7 @@
 
 ### codeforces coding utilities
 - `make init <contest_id>` to generate new contest folder
+  - contest_id can be found in the website url
 - `make run <problem_id>` to run script with io-tests
 - `make push` to push contest to GitHub
 
