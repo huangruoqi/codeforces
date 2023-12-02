@@ -1,10 +1,12 @@
 export PYTHONDONTWRITEBYTECODE=1
 setup:
-	poetry install
-	poetry run python codeforces/index.py setup
+	pip install -r requirements.txt
 
 black:
-	poetry run black ./
+	black ./
+
+test:
+	pytest ./codeforces
 
 # If the first argument is "init"
 ifeq (init,$(firstword $(MAKECMDGOALS)))
@@ -12,7 +14,7 @@ ifeq (init,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 init:
-	poetry run python codeforces/index.py init $(RUN_ARGS)
+	python3 index.py init $(RUN_ARGS)
 
 
 # If the first argument is "run"
@@ -21,9 +23,9 @@ ifeq (run,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 run:
-	poetry run python codeforces/index.py run $(RUN_ARGS)
+	python3 index.py run $(RUN_ARGS)
 
 push:
-	poetry run black ./
+	black ./
 	git add .
-	poetry run python codeforces/index.py push
+	python3 index.py push

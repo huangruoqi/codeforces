@@ -1,0 +1,5 @@
+black
+bs4
+requests
+termcolor
+pytest

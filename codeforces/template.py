@@ -4,6 +4,8 @@
     Problem | {problem}
     Time    | {time}
 """
+
+
 def ii(num=False):
     i = input().split()
     if num:
@@ -13,11 +15,6 @@ def ii(num=False):
     except Exception:
         return i
 
-
-def gcd(a, b):
-    if a == 0:
-        return b
-    return gcd(b % a, a)
 
 for _ in range(ii(1)):
     pass

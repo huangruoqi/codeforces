@@ -12,6 +12,8 @@ f = open("codeforces/template.py")
 template = f.read()
 f.close()
 
+DATA_PATH = os.path.join("codeforces", "data.json")
+
 
 def get_contest(contest_id):
     url = f"https://codeforces.com/contest/{contest_id}?locale=en"
@@ -27,33 +29,36 @@ def get_contest(contest_id):
     return contest_name, result, url
 
 
-def create_folder(name):
-    legal_name = "".join(["" if s in illegal else s for s in name])
+def create_folder(contest_name, contest_id, questions):
+    legal_name = "".join(["" if s in illegal else s for s in contest_name])
     f_path = os.path.join("records", legal_name)
+    url = f"https://codeforces.com/contest/{contest_id}?locale=en"
     if os.path.isdir(f_path):
-        print(f"\nContest <{name}> already exist!!!")
+        print(f"\nContest <{contest_name}> already exist!!!")
         if input("Enter `yes` to delete the old one: ").lower().strip() != "yes":
             print("Exiting contest initialization...")
-            return
+            return f_path
         shutil.rmtree(f_path)
     os.mkdir(f_path)
     os.mkdir(os.path.join(f_path, "test-io"))
-    return f_path
+    create_questions(contest_id, questions, f_path, contest_name)
+    # README
+    readme = open(os.path.join(f_path, "README.md"), "w")
+    readme.write(f"# Contest {contest_id}\n")
+    readme.write(f"## [{contest_name}]({url})\n")
+    readme.write(f"- {datetime.now()}\n")
+    readme.close()
 
 
 def create_questions(contest_id, questions, f_path, contest_name):
     io_path = os.path.join(f_path, "test-io")
     for question in questions.items():
-        _create_source_file(question, contest_id, f_path, contest_name)
+        _create_source_file(question, f_path, contest_name)
         _create_question_io(question, contest_id, io_path)
 
 
-def _create_source_file(question, contest_id, f_path, contest_name):
-
+def _create_source_file(question, f_path, contest_name):
     q_id, name = question
-    url = "https://codeforces.com/contest/{}/problem/{}?locale=en".format(
-        contest_id, q_id
-    )
     source_file = open(os.path.join(f_path, q_id + ".py"), "w")
     date_time = datetime.now()
     source_file.write(
@@ -123,7 +128,7 @@ def run_test(q_id, f_path):
         outPath2 = os.path.join(f_path, "output.txt")
         inPath = os.path.join(io_path, str(number) + ".in")
         srcPath = os.path.join(f_path, q_id + ".py")
-        cmd = f'poetry run python "{srcPath}" < "{inPath}" > "{outPath2}"'
+        cmd = f'python3 "{srcPath}" < "{inPath}" > "{outPath2}"'
         os.system(cmd)
         file1 = open(outPath, "r")
         expected = file1.read().strip()
@@ -151,12 +156,19 @@ def run_test(q_id, f_path):
         print(colored(str(correct) + " / " + str(number) + " tests passed!", "red"))
 
 
+def validate_contest():
+    if not os.path.exists(DATA_PATH):
+        raise Exception("Run 'make init' to set contest")
+
+
 def get_contest_name():
+    validate_contest()
     with open("codeforces/data.json") as f:
         return json.load(f)["current_contest_name"]
 
 
 def get_contest_id():
+    validate_contest()
     with open("codeforces/data.json") as f:
         return json.load(f)["current_contest_id"]
 
