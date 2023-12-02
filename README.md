@@ -7,7 +7,7 @@
 - Language
 - IDE open command
   - **vscode** recommended
-    - after install<command+shift+p> -> type "install code" to add to path
+    - after install -> <command+shift+p> -> type "install code" to add to path
 5. Edit the template code in `codeforces/source.template`
 
 ### codeforces coding utilities
