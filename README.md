@@ -9,6 +9,7 @@
   - **vscode** recommended
     - after install ➜ <command+shift+p> ➜ type "install code" to add to path
 5. Edit the template code in `codeforces/source.template`
+6. `pip3 install -r requirements.txt`
 
 ### codeforces coding utilities
 - `make init <contest_id>` to generate new contest folder
