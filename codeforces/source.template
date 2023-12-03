@@ -35,7 +35,7 @@ int solve() {{
 int main() {{
     ios::sync_with_stdio(false);
     cin.tie(0);
-    int uwu;
+    int uwu = 1; // number of test cases
     cin >> uwu;
     while (uwu--) {{
         solve();
