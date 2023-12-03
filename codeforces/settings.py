@@ -1,3 +1,6 @@
+import platform
+path_sep = '\\' if platform.system()=="Windows" else '/'
+
 IDE_COMMAND = "code"
 
 """Python"""
@@ -8,7 +11,7 @@ IDE_COMMAND = "code"
 """C++"""
 SRC_FILE_EXTENSION = ".cc"
 COMPILE_COMMAND_TEMPLATE = 'c++ "{src_path}" -o "{question_path}.o"'
-RUN_COMMAND_TEMPLATE = './"{question_path}.o"'
+RUN_COMMAND_TEMPLATE = f'.{path_sep}"{{question_path}}.o"'
 
 """Java"""
 # SRC_FILE_EXTENSION = ".java"
